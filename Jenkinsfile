@@ -37,6 +37,17 @@ spec:
       value: 127.0.0.1,localhost,.svc,.cluster.local,10.96.0.0/12,10.233.0.0/16,192.168.40.0/24
     - name: no_proxy
       value: 127.0.0.1,localhost,.svc,.cluster.local,10.96.0.0/12,10.233.0.0/16,192.168.40.0/24
+  - name: jnlp
+    image: jenkins/inbound-agent:3391.va_37fa_a_305d6d-1-jdk25
+    env:
+    - name: HTTPS_PROXY
+      value: http://192.168.40.1:7890
+    - name: https_proxy
+      value: http://192.168.40.1:7890
+    - name: NO_PROXY
+      value: 127.0.0.1,localhost,.svc,.cluster.local,10.96.0.0/12,10.233.0.0/16,192.168.40.0/24
+    - name: no_proxy
+      value: 127.0.0.1,localhost,.svc,.cluster.local,10.96.0.0/12,10.233.0.0/16,192.168.40.0/24
   volumes:
   - name: docker-socket
     hostPath:
