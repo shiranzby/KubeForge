@@ -71,9 +71,12 @@ spec:
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
                 script {
-                    env.GIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    def checkoutInfo = checkout scm
+                    if (!checkoutInfo.GIT_COMMIT) {
+                        error 'Git checkout did not return GIT_COMMIT'
+                    }
+                    env.GIT_SHA = checkoutInfo.GIT_COMMIT
                     env.IMAGE_TAG = env.GIT_SHA.take(12)
                 }
                 sh '''
